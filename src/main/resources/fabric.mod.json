@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "dynamicbrightnesscontrols",
+	"version": "${version}",
+	"name": "Dynamic Brightness Controls",
+	"description": "This is a mod designed to allow seamless brightness settings transitions between different Minecraft environments",
+	"authors": [
+		"Flapjackpants23"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/dynamicbrightnesscontrols/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.flapjackpants.dynamicbrightnesscontrols.DynamicBrightnessControls"
+		],
+		"fabric-datagen": [
+			"net.flapjackpants.dynamicbrightnesscontrols.DynamicBrightnessControlsDataGenerator"
+		],
+		"client": [
+			"net.flapjackpants.dynamicbrightnesscontrols.DynamicBrightnessControlsClient"
+		]
+	},
+	"mixins": [
+		"dynamicbrightnesscontrols.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.10",
+		"minecraft": "~1.21.5",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
