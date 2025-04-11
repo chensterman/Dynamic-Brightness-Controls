@@ -3,7 +3,7 @@
 	"package": "net.flapjackpants.dynamicbrightnesscontrols.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"GameOptionsMixin"
+		"MixinSimpleOption"
 	],
 	"injectors": {
 		"defaultRequire": 1

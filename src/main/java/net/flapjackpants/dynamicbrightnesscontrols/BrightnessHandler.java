@@ -2,14 +2,9 @@ package net.flapjackpants.dynamicbrightnesscontrols;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.option.SimpleOption;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LightType;
 import net.minecraft.world.dimension.DimensionTypes;
-import net.flapjackpants.dynamicbrightnesscontrols.mixin.GameOptionsMixin;
-
-import java.util.Optional;
+import net.flapjackpants.dynamicbrightnesscontrols.mixin.MixinSimpleOption;
 
 public class BrightnessHandler {
     private static final MinecraftClient client = MinecraftClient.getInstance();
@@ -25,7 +20,7 @@ public class BrightnessHandler {
 
         // Adjust targetGamma
         if (client.world.getDimensionEntry().matchesKey(DimensionTypes.OVERWORLD)){
-            targetGamma = hasSkyLight ? 0 : 1; // No Skylight = 100, with SkyLight = 30
+            targetGamma = hasSkyLight ? 0 : 20; // No Skylight = 100, with SkyLight = 30
         } else if (client.world.getDimensionEntry().matchesKey(DimensionTypes.THE_NETHER)){
             targetGamma = 1;
         } else if (client.world.getDimensionEntry().matchesKey(DimensionTypes.THE_END)){
@@ -36,9 +31,13 @@ public class BrightnessHandler {
         GameOptions options = client.options;
         double currentGamma = options.getGamma().getValue();
         if (currentGamma < targetGamma) {
-            options.getGamma().setValue(Math.min((currentGamma + .01), 1.0));
+            currentGamma = Math.min(currentGamma + (targetGamma-currentGamma)/20.0, targetGamma);
         } else if (currentGamma > targetGamma) {
-            options.getGamma().setValue(Math.max((currentGamma - .01), 0.0));
+            currentGamma = Math.max(currentGamma + (targetGamma-currentGamma)/20.0, 0.0);
         }
+
+        @SuppressWarnings("unchecked")
+        MixinSimpleOption<Double> gammaOption = (MixinSimpleOption<Double>) (Object) client.options.getGamma();
+        gammaOption.setValueNoCheck(currentGamma);
     }
 }
