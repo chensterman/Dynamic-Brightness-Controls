@@ -16,7 +16,7 @@ public class BrightnessHandler {
         int lightLevel = client.world.getLightLevel(LightType.BLOCK, client.player.getBlockPos());
         boolean hasSkyLight = client.world.getLightLevel(LightType.SKY, client.player.getBlockPos()) > 7;
 
-        System.out.println(", Target Brightness: " + targetGamma);
+
 
         // Adjust targetGamma
         if (client.world.getDimensionEntry().matchesKey(DimensionTypes.OVERWORLD)){
@@ -35,6 +35,8 @@ public class BrightnessHandler {
         } else if (currentGamma > targetGamma) {
             currentGamma = Math.max(currentGamma + (targetGamma-currentGamma)/20.0, 0.0);
         }
+
+        //System.out.println(", Target: " + targetGamma + " Current: " + currentGamma);
 
         @SuppressWarnings("unchecked")
         MixinSimpleOption<Double> gammaOption = (MixinSimpleOption<Double>) (Object) client.options.getGamma();

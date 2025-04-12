@@ -23,6 +23,9 @@
 		],
 		"client": [
 			"net.flapjackpants.dynamicbrightnesscontrols.DynamicBrightnessControlsClient"
+		],
+		"modmenu": [
+			"net.flapjackpants.dynamicbrightnesscontrols.DynamicBrightnessControlsModMenu"
 		]
 	},
 	"mixins": [
@@ -32,9 +35,14 @@
 		"fabricloader": ">=0.16.10",
 		"minecraft": "~1.21.5",
 		"java": ">=21",
-		"fabric-api": "*"
+		"fabric-api": "*",
+		"cloth-config": ">=18.0.0"
 	},
 	"suggests": {
 		"another-mod": "*"
+	},
+	"custom": {
+		"modmenu:api": true,
+		"modmenu:parent": "net.flapjackpants.dynamicbrightnesscontrols.DynamicBrightnessControlsModMenu"
 	}
 }
