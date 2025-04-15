@@ -5,6 +5,7 @@ import net.minecraft.client.option.GameOptions;
 import net.minecraft.world.LightType;
 import net.minecraft.world.dimension.DimensionTypes;
 import net.flapjackpants.dynamicbrightnesscontrols.mixin.MixinSimpleOption;
+import net.flapjackpants.dynamicbrightnesscontrols.config.ModConfig;
 
 public class BrightnessHandler {
     private static final MinecraftClient client = MinecraftClient.getInstance();
@@ -17,23 +18,22 @@ public class BrightnessHandler {
         boolean hasSkyLight = client.world.getLightLevel(LightType.SKY, client.player.getBlockPos()) > 7;
 
 
-
         // Adjust targetGamma
         if (client.world.getDimensionEntry().matchesKey(DimensionTypes.OVERWORLD)){
-            targetGamma = hasSkyLight ? 0 : 20; // No Skylight = 100, with SkyLight = 30
+            targetGamma = hasSkyLight ? ModConfig.get().overworldGamma : ModConfig.get().caveGamma; // No Skylight = 100, with SkyLight = 30
         } else if (client.world.getDimensionEntry().matchesKey(DimensionTypes.THE_NETHER)){
-            targetGamma = 1;
+            targetGamma = ModConfig.get().netherGamma;
         } else if (client.world.getDimensionEntry().matchesKey(DimensionTypes.THE_END)){
-            targetGamma = 1;
+            targetGamma = ModConfig.get().endGamma;
         }
 
         // Apply smooth transition
         GameOptions options = client.options;
         double currentGamma = options.getGamma().getValue();
         if (currentGamma < targetGamma) {
-            currentGamma = Math.min(currentGamma + (targetGamma-currentGamma)/20.0, targetGamma);
+            currentGamma = Math.min(currentGamma + (targetGamma-currentGamma)/ModConfig.get().gammaTransitionTime/10.0, targetGamma);
         } else if (currentGamma > targetGamma) {
-            currentGamma = Math.max(currentGamma + (targetGamma-currentGamma)/20.0, 0.0);
+            currentGamma = Math.max(currentGamma + (targetGamma-currentGamma)/ModConfig.get().gammaTransitionTime/10.0, targetGamma);
         }
 
         //System.out.println(", Target: " + targetGamma + " Current: " + currentGamma);

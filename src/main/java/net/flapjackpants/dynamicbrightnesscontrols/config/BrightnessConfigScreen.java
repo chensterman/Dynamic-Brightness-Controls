@@ -20,44 +20,56 @@ public class BrightnessConfigScreen {
             System.out.println("Saved brightness config!");
         });
 
-        ConfigCategory gammaSettings = builder.getOrCreateCategory(Text.literal("Gamma Settings"));
+        ConfigCategory gammaSettings = builder.getOrCreateCategory(Text.literal("Dynamic Brightness Controls"));
+
+        builder.setSavingRunnable(ModConfig::save);
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
         gammaSettings.addEntry(entryBuilder.startDoubleField(
-                        Text.literal("Overworld Gamma"), config.overworldGamma)
-                .setDefaultValue(30.0)
+                        Text.literal("Overworld Gamma (0.0 - 1.0)"), ModConfig.get().overworldGamma)
+                .setDefaultValue(0.0)
                 .setMin(0.0)
-                .setMax(10000.0)
-                .setSaveConsumer(newValue -> config.overworldGamma = newValue)
+                .setMax(20.0)
+                .setSaveConsumer(newValue -> ModConfig.get().overworldGamma = newValue)
                 .build()
         );
 
         gammaSettings.addEntry(entryBuilder.startDoubleField(
-                        Text.literal("Cave Gamma"), config.caveGamma)
-                .setDefaultValue(100.0)
+                        Text.literal("Overworld Cave Gamma (0.0 - 1.0)"), ModConfig.get().caveGamma)
+                .setDefaultValue(1.0)
                 .setMin(0.0)
-                .setMax(10000.0)
-                .setSaveConsumer(newValue -> config.caveGamma = newValue)
+                .setMax(20.0)
+                .setSaveConsumer(newValue -> ModConfig.get().caveGamma = newValue)
                 .build()
         );
 
         gammaSettings.addEntry(entryBuilder.startDoubleField(
-                        Text.literal("Nether Gamma"), config.netherGamma)
-                .setDefaultValue(100.0)
+                        Text.literal("Nether Gamma (0.0 - 1.0)"), ModConfig.get().netherGamma)
+                .setDefaultValue(1.0)
                 .setMin(0.0)
-                .setMax(10000.0)
-                .setSaveConsumer(newValue -> config.netherGamma = newValue)
+                .setMax(20.0)
+                .setSaveConsumer(newValue -> ModConfig.get().netherGamma = newValue)
                 .build()
         );
 
         gammaSettings.addEntry(entryBuilder.startDoubleField(
-                        Text.literal("End Gamma"), config.endGamma)
-                .setDefaultValue(100.0)
+                        Text.literal("End Gamma (0.0 - 1.0)"), ModConfig.get().endGamma)
+                .setDefaultValue(1.0)
                 .setMin(0.0)
-                .setMax(10000.0)
-                .setSaveConsumer(newValue -> config.endGamma = newValue)
+                .setMax(20.0)
+                .setSaveConsumer(newValue -> ModConfig.get().endGamma = newValue)
                 .build()
         );
+
+        gammaSettings.addEntry(entryBuilder.startDoubleField(
+                        Text.literal("Transition Time (seconds)"), ModConfig.get().gammaTransitionTime)
+                .setDefaultValue(1.0)
+                .setMin(0.0)
+                .setSaveConsumer(newValue -> ModConfig.get().gammaTransitionTime = newValue)
+                .build()
+        );
+
+
 
         return builder.build();
     }
