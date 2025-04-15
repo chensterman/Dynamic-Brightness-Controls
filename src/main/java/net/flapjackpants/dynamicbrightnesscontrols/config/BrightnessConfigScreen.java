@@ -26,11 +26,20 @@ public class BrightnessConfigScreen {
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
         gammaSettings.addEntry(entryBuilder.startDoubleField(
-                        Text.literal("Overworld Gamma (0.0 - 1.0)"), ModConfig.get().overworldGamma)
+                        Text.literal("Overworld Noon Gamma (0.0 - 1.0)"), ModConfig.get().overworldGamma)
                 .setDefaultValue(0.0)
                 .setMin(0.0)
                 .setMax(20.0)
                 .setSaveConsumer(newValue -> ModConfig.get().overworldGamma = newValue)
+                .build()
+        );
+
+        gammaSettings.addEntry(entryBuilder.startDoubleField(
+                        Text.literal("Overworld Midnight Gamma (0.0 - 1.0)"), ModConfig.get().nightGamma)
+                .setDefaultValue(1.0)
+                .setMin(0.0)
+                .setMax(20.0)
+                .setSaveConsumer(newValue -> ModConfig.get().nightGamma = newValue)
                 .build()
         );
 
@@ -64,7 +73,7 @@ public class BrightnessConfigScreen {
         gammaSettings.addEntry(entryBuilder.startDoubleField(
                         Text.literal("Transition Time (seconds)"), ModConfig.get().gammaTransitionTime)
                 .setDefaultValue(1.0)
-                .setMin(0.0)
+                .setMin(0.1)
                 .setSaveConsumer(newValue -> ModConfig.get().gammaTransitionTime = newValue)
                 .build()
         );

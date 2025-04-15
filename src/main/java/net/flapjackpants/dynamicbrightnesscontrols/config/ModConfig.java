@@ -17,10 +17,11 @@ public class ModConfig {
     private static ModConfig INSTANCE = new ModConfig();
 
     public double overworldGamma = 0.0;
+    public double nightGamma = 1.0;
     public double caveGamma = 1.0;
     public double netherGamma = 1.0;
     public double endGamma = 1.0;
-    public double gammaTransitionTime = 10;
+    public double gammaTransitionTime = 1.0;
 
     public static ModConfig get() {
         if (INSTANCE == null){
