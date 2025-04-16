@@ -13,7 +13,7 @@ public class BrightnessHandler {
     private static double targetGamma = 0.0; //Default targetGamma
 
     public static void updateBrightness (){
-        if (client.player == null || client.world == null) return;
+        if (client.player == null || client.world == null || !ModConfig.get().modEnabled) return;
 
         boolean hasSkyLight = client.world.getLightLevel(LightType.SKY, client.player.getBlockPos()) > 7;
         double day = ModConfig.get().overworldGamma;
@@ -23,7 +23,7 @@ public class BrightnessHandler {
         // Adjust targetGamma
         if (client.world.getDimensionEntry().matchesKey(DimensionTypes.OVERWORLD)){
             // Day-night sinusoidal gamma curve
-            targetGamma = Math.round(Math.max((Math.min((night-day)*(-.707107)*Math.sin(radTime)+.5, night)), day)*100)/100.0;
+            targetGamma = Math.max((Math.min((night-day)*(-.707107)*Math.sin(radTime)+(night+day)/2.0, night)), day);
             if (!hasSkyLight) targetGamma = ModConfig.get().caveGamma; // check if in a place with no skylight access
 
         } else if (client.world.getDimensionEntry().matchesKey(DimensionTypes.THE_NETHER)){

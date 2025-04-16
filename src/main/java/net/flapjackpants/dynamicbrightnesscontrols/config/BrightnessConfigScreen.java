@@ -25,9 +25,18 @@ public class BrightnessConfigScreen {
         builder.setSavingRunnable(ModConfig::save);
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
+        gammaSettings.addEntry(entryBuilder.startBooleanToggle(
+                        Text.literal("Enable Dynamic Brightness"), ModConfig.get().modEnabled)
+                .setDefaultValue(true)
+                .setTooltip(Text.literal("Toggle all Dynamic Brightness Controls mod features"))
+                .setSaveConsumer(newValue -> ModConfig.get().modEnabled = newValue)
+                .build()
+        );
+
         gammaSettings.addEntry(entryBuilder.startDoubleField(
                         Text.literal("Overworld Noon Gamma (0.0 - 1.0)"), ModConfig.get().overworldGamma)
                 .setDefaultValue(0.0)
+                .setTooltip(Text.literal("Lowest overworld outside gamma"))
                 .setMin(0.0)
                 .setMax(20.0)
                 .setSaveConsumer(newValue -> ModConfig.get().overworldGamma = newValue)
@@ -37,6 +46,7 @@ public class BrightnessConfigScreen {
         gammaSettings.addEntry(entryBuilder.startDoubleField(
                         Text.literal("Overworld Midnight Gamma (0.0 - 1.0)"), ModConfig.get().nightGamma)
                 .setDefaultValue(1.0)
+                .setTooltip(Text.literal("Highest overworld outside gamma"))
                 .setMin(0.0)
                 .setMax(20.0)
                 .setSaveConsumer(newValue -> ModConfig.get().nightGamma = newValue)
@@ -46,6 +56,7 @@ public class BrightnessConfigScreen {
         gammaSettings.addEntry(entryBuilder.startDoubleField(
                         Text.literal("Overworld Cave Gamma (0.0 - 1.0)"), ModConfig.get().caveGamma)
                 .setDefaultValue(1.0)
+                .setTooltip(Text.literal("Overworld gamma in areas outside natural sky light"))
                 .setMin(0.0)
                 .setMax(20.0)
                 .setSaveConsumer(newValue -> ModConfig.get().caveGamma = newValue)
@@ -55,6 +66,7 @@ public class BrightnessConfigScreen {
         gammaSettings.addEntry(entryBuilder.startDoubleField(
                         Text.literal("Nether Gamma (0.0 - 1.0)"), ModConfig.get().netherGamma)
                 .setDefaultValue(1.0)
+                .setTooltip(Text.literal("Gamma all over the nether"))
                 .setMin(0.0)
                 .setMax(20.0)
                 .setSaveConsumer(newValue -> ModConfig.get().netherGamma = newValue)
@@ -64,6 +76,7 @@ public class BrightnessConfigScreen {
         gammaSettings.addEntry(entryBuilder.startDoubleField(
                         Text.literal("End Gamma (0.0 - 1.0)"), ModConfig.get().endGamma)
                 .setDefaultValue(1.0)
+                .setTooltip(Text.literal("Gamma all over the end"))
                 .setMin(0.0)
                 .setMax(20.0)
                 .setSaveConsumer(newValue -> ModConfig.get().endGamma = newValue)
@@ -71,8 +84,9 @@ public class BrightnessConfigScreen {
         );
 
         gammaSettings.addEntry(entryBuilder.startDoubleField(
-                        Text.literal("Transition Time (seconds)"), ModConfig.get().gammaTransitionTime)
+                        Text.literal("Transition Time"), ModConfig.get().gammaTransitionTime)
                 .setDefaultValue(1.0)
+                .setTooltip(Text.literal("Seconds it takes to transition from one gamma value to another"))
                 .setMin(0.1)
                 .setSaveConsumer(newValue -> ModConfig.get().gammaTransitionTime = newValue)
                 .build()

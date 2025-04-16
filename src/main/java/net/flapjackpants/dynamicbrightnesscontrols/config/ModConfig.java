@@ -16,6 +16,8 @@ public class ModConfig {
 
     private static ModConfig INSTANCE = new ModConfig();
 
+    public boolean modEnabled = true;
+
     public double overworldGamma = 0.0;
     public double nightGamma = 1.0;
     public double caveGamma = 1.0;
