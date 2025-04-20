@@ -91,8 +91,29 @@ public class BrightnessConfigScreen {
                 .setSaveConsumer(newValue -> ModConfig.get().gammaTransitionTime = newValue)
                 .build()
         );
-
-
+        
+        // Rainbow effect settings
+        ConfigCategory rainbowSettings = builder.getOrCreateCategory(Text.literal("Rainbow Effect Settings"));
+        
+        rainbowSettings.addEntry(entryBuilder.startDoubleField(
+                        Text.literal("Max Gamma for Rainbow"), ModConfig.get().maxGammaForRainbow)
+                .setDefaultValue(1.0)
+                .setTooltip(Text.literal("The gamma value that corresponds to full rainbow intensity"))
+                .setMin(0.1)
+                .setMax(20.0)
+                .setSaveConsumer(newValue -> ModConfig.get().maxGammaForRainbow = newValue)
+                .build()
+        );
+        
+        rainbowSettings.addEntry(entryBuilder.startFloatField(
+                        Text.literal("Rainbow Intensity Multiplier"), ModConfig.get().rainbowIntensityMultiplier)
+                .setDefaultValue(1.0f)
+                .setTooltip(Text.literal("Multiplier for rainbow effect intensity (0.0 = no effect, 1.0 = full effect)"))
+                .setMin(0.0f)
+                .setMax(2.0f)
+                .setSaveConsumer(newValue -> ModConfig.get().rainbowIntensityMultiplier = newValue)
+                .build()
+        );
 
         return builder.build();
     }

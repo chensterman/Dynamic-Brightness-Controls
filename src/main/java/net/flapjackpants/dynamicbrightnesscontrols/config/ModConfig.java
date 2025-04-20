@@ -18,12 +18,17 @@ public class ModConfig {
 
     public boolean modEnabled = true;
 
+    // Gamma settings
     public double overworldGamma = 0.0;
     public double nightGamma = 1.0;
     public double caveGamma = 1.0;
     public double netherGamma = 1.0;
     public double endGamma = 1.0;
     public double gammaTransitionTime = 1.0;
+    
+    // Rainbow effect settings
+    public double maxGammaForRainbow = 1.0; // The gamma value that corresponds to full rainbow intensity
+    public float rainbowIntensityMultiplier = 1.0f; // Multiplier for rainbow effect intensity
 
     public static ModConfig get() {
         if (INSTANCE == null){

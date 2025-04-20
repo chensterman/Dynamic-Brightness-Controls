@@ -5,6 +5,9 @@
 	"mixins": [
 		"MixinSimpleOption"
 	],
+	"client": [
+		"MixinGameRenderer"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	}
